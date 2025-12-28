@@ -1,5 +1,7 @@
 ﻿---
 const mainSiteUrl = "https://amplifycreativelab.com";
+const logoUrl =
+  "https://amplifycreativelab.com/images/logo/amplify-creative-lab-logo-perth-WA.svg";
 ---
 
 <div class="demo-branding" role="note" aria-label="Concept demo attribution">
@@ -9,6 +11,9 @@ const mainSiteUrl = "https://amplifycreativelab.com";
     target="_blank"
     rel="nofollow noopener noreferrer"
   >
+    <span class="demo-branding__logo-wrap">
+      <img class="demo-branding__logo" src={logoUrl} alt="" decoding="async" />
+    </span>
     <span class="demo-branding__label">Concept Demo</span>
     <span class="demo-branding__by">by Amplify Creative Lab</span>
     <span class="demo-branding__sub">High-performance Astro build - Motion-first design</span>
@@ -49,6 +54,22 @@ const mainSiteUrl = "https://amplifycreativelab.com";
     opacity: 0.95;
     transform: translateY(-1px);
     background: rgba(255, 255, 255, 0.86);
+  }
+
+  .demo-branding__logo-wrap {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 8px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .demo-branding__logo {
+    display: block;
+    height: 60px;
+    width: auto;
   }
 
   .demo-branding__label {
