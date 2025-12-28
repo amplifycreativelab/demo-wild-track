@@ -1,0 +1,157 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import TopoDivider from "../components/TopoDivider.astro";
+
+const gearCategories = [
+    {
+        name: "Primary Navigation",
+        items: [
+            {
+                name: "Handheld GPS",
+                status: "Required",
+                note: "Garmin InReach or equivalent",
+            },
+            {
+                name: "Topo Maps",
+                status: "Provided",
+                note: "Laminated regional sector maps",
+            },
+            {
+                name: "Analog Compass",
+                status: "Recommended",
+                note: "Fluid-damped baseplate",
+            },
+        ],
+    },
+    {
+        name: "Personal Protection",
+        items: [
+            {
+                name: "Trekking Boots",
+                status: "Required",
+                note: "High-ankle support, lugged grips",
+            },
+            {
+                name: "Water Filter",
+                status: "Recommended",
+                note: "Sawyer Squeeze or similar",
+            },
+            {
+                name: "First Aid Kit",
+                status: "Required",
+                note: "Personal scale (Guides carry Trauma kits)",
+            },
+        ],
+    },
+    {
+        name: "Deployment Essentials",
+        items: [
+            {
+                name: "Shelter System",
+                status: "Required",
+                note: "Season-appropriate (3-season min)",
+            },
+            {
+                name: "Hydration",
+                status: "Required",
+                note: "3L minimum capacity",
+            },
+            {
+                name: "Field Knife",
+                status: "Recommended",
+                note: "Fixed blade or locking folder",
+            },
+        ],
+    },
+];
+---
+
+<BaseLayout title="Gear Guide | Expedition Readiness">
+    <Header />
+
+    <main class="pt-24 min-h-screen">
+        <section class="py-16 bg-navy">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <div class="flex items-center gap-3 mb-4">
+                    <span
+                        class="text-xs font-bold text-teal uppercase tracking-[0.4em]"
+                        >Field Operations</span
+                    >
+                    <div class="h-px w-12 bg-forest"></div>
+                </div>
+                <h1
+                    class="text-5xl md:text-6xl font-bold text-sand uppercase tracking-tight leading-[0.9] mb-8"
+                >
+                    Gear Readiness
+                </h1>
+                <p
+                    class="text-text-muted text-xs uppercase tracking-[0.2em] font-bold mb-16 max-w-2xl leading-loose"
+                >
+                    Proper equipment selection is critical for mission success.
+                    The following checklists define the minimum deployment
+                    standards for WildTrack expeditions.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    {
+                        gearCategories.map((category) => (
+                            <div class="border border-forest p-8 bg-forest/20">
+                                <h2 class="text-[10px] text-teal font-bold uppercase tracking-[0.3em] mb-8 pb-4 border-b border-navy">
+                                    {category.name}
+                                </h2>
+                                <ul class="flex flex-col gap-6">
+                                    {category.items.map((item) => (
+                                        <li>
+                                            <div class="flex justify-between items-start mb-1">
+                                                <span class="text-xs font-bold text-sand uppercase tracking-widest">
+                                                    {item.name}
+                                                </span>
+                                                <span
+                                                    class:list={[
+                                                        "text-[9px] px-1.5 py-0.5 border font-bold uppercase tracking-widest",
+                                                        item.status ===
+                                                        "Required"
+                                                            ? "border-orange text-orange"
+                                                            : "border-text-muted/30 text-text-muted",
+                                                    ]}
+                                                >
+                                                    {item.status}
+                                                </span>
+                                            </div>
+                                            <p class="text-[10px] text-text-muted uppercase tracking-wider">
+                                                {item.note}
+                                            </p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))
+                    }
+                </div>
+
+                <!-- Print CTA -->
+                <div
+                    class="mt-16 p-8 border border-dashed border-forest text-center"
+                >
+                    <p
+                        class="text-[10px] text-text-muted uppercase tracking-[0.2em] mb-6"
+                    >
+                        Need a hard copy for the field?
+                    </p>
+                    <button
+                        onclick="window.print()"
+                        class="text-xs font-bold tracking-widest uppercase text-sand border border-sand px-6 py-3 hover:bg-sand/10 transition-all"
+                    >
+                        Generate Print-Ready Checklist
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <TopoDivider opacity={5} />
+    </main>
+
+    <Footer />
+</BaseLayout>

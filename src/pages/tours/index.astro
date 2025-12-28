@@ -1,0 +1,86 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import RouteCard from "../../components/RouteCard.astro";
+import TopoDivider from "../../components/TopoDivider.astro";
+import { getCollection } from "astro:content";
+
+const allTours = await getCollection("tours");
+---
+
+<BaseLayout title="All Expeditions | Tour Discovery">
+    <Header />
+
+    <main class="pt-24 min-h-screen">
+        <section class="py-16 bg-navy">
+            <div class="container mx-auto px-6">
+                <div
+                    class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12"
+                >
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <span
+                                class="text-xs font-bold text-teal uppercase tracking-[0.4em]"
+                                >Inventory Release</span
+                            >
+                            <div class="h-px w-12 bg-forest"></div>
+                        </div>
+                        <h1
+                            class="text-5xl md:text-6xl font-bold text-sand uppercase tracking-tight leading-[0.9]"
+                        >
+                            Tour Discovery
+                        </h1>
+                    </div>
+                    <div
+                        class="text-text-muted text-xs uppercase tracking-[0.2em] font-bold"
+                    >
+                        {allTours.length} Active Routes Detected
+                    </div>
+                </div>
+
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                >
+                    {
+                        allTours.map((tour) => (
+                            <RouteCard
+                                slug={tour.id}
+                                name={tour.data.title}
+                                difficulty={tour.data.difficulty}
+                                difficultyNote={tour.data.difficultyNote}
+                                duration={tour.data.duration}
+                                distance={tour.data.distance}
+                            />
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
+
+        <TopoDivider opacity={5} />
+
+        <!-- Filter Placeholder / Logistics Note -->
+        <section class="py-12 border-t border-forest">
+            <div class="container mx-auto px-6">
+                <div class="bg-forest/20 p-8 border border-forest max-w-4xl">
+                    <h2
+                        class="text-[10px] text-teal font-bold uppercase tracking-[0.3em] mb-4"
+                    >
+                        Logistics Advisory
+                    </h2>
+                    <p
+                        class="text-xs text-text-muted leading-relaxed uppercase tracking-wider"
+                    >
+                        All routes are subject to seasonal availability and
+                        terrain conditions. We recommend booking at least 14
+                        days in advance for technical expeditions. Gear checks
+                        are mandatory for all 'Hard' and 'Expert' rated routes.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <Footer />
+</BaseLayout>

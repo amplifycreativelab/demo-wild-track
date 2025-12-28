@@ -1,0 +1,156 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import TopoDivider from "../components/TopoDivider.astro";
+---
+
+<BaseLayout title="Contact | Technical Support">
+    <Header />
+
+    <main class="pt-24 min-h-screen">
+        <section class="py-16 bg-navy">
+            <div
+                class="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16"
+            >
+                <div class="lg:col-span-12 mb-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span
+                            class="text-xs font-bold text-teal uppercase tracking-[0.4em]"
+                            >Signal Headquarters</span
+                        >
+                        <div class="h-px w-12 bg-forest"></div>
+                    </div>
+                    <h1
+                        class="text-5xl md:text-6xl font-bold text-sand uppercase tracking-tight leading-[0.9]"
+                    >
+                        Inquiry Protocol
+                    </h1>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <form class="flex flex-col gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="flex flex-col gap-2">
+                                <label
+                                    for="name"
+                                    class="text-[10px] text-teal font-bold uppercase tracking-[0.2em]"
+                                    >Navigator Name</label
+                                >
+                                <input
+                                    type="text"
+                                    id="name"
+                                    class="bg-forest border border-navy p-4 text-sand text-xs focus:ring-1 focus:ring-orange outline-none transition-all"
+                                    placeholder="E.G. JOHN DOE"
+                                />
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label
+                                    for="email"
+                                    class="text-[10px] text-teal font-bold uppercase tracking-[0.2em]"
+                                    >Signal ID (Email)</label
+                                >
+                                <input
+                                    type="email"
+                                    id="email"
+                                    class="bg-forest border border-navy p-4 text-sand text-xs focus:ring-1 focus:ring-orange outline-none transition-all"
+                                    placeholder="NAME@DOMAIN.COM"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label
+                                for="inquiry"
+                                class="text-[10px] text-teal font-bold uppercase tracking-[0.2em]"
+                                >Inquiry Type</label
+                            >
+                            <select
+                                id="inquiry"
+                                class="bg-forest border border-navy p-4 text-sand text-xs focus:ring-1 focus:ring-orange outline-none transition-all appearance-none cursor-pointer"
+                            >
+                                <option>CUSTOM ITINERARY REQUEST</option>
+                                <option>LOGISTICS / GEAR QUERY</option>
+                                <option>GEOGRAPHIC INTEL</option>
+                                <option>OTHER MISSION DATA</option>
+                            </select>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label
+                                for="message"
+                                class="text-[10px] text-teal font-bold uppercase tracking-[0.2em]"
+                                >Mission Brief (Message)</label
+                            >
+                            <textarea
+                                id="message"
+                                rows="6"
+                                class="bg-forest border border-navy p-4 text-sand text-xs focus:ring-1 focus:ring-orange outline-none transition-all"
+                                placeholder="DESCRIBE YOUR OBJECTIVES..."
+                            ></textarea>
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="bg-orange text-navy font-bold py-5 uppercase tracking-[0.2em] text-sm hover:bg-orange/90 transition-all"
+                        >
+                            Transmit Brief
+                        </button>
+                    </form>
+                </div>
+
+                <div class="lg:col-span-5">
+                    <div class="flex flex-col gap-12">
+                        <div>
+                            <h2
+                                class="text-[10px] text-teal font-bold uppercase tracking-[0.3em] mb-4"
+                            >
+                                Basecamp HQ
+                            </h2>
+                            <p
+                                class="text-xs text-text-muted uppercase tracking-widest leading-loose font-medium"
+                            >
+                                WildTrack Expeditions<br />
+                                Sector 4, Ridgeway District<br />
+                                Fictional details for a non-indexed demo
+                            </p>
+                        </div>
+
+                        <div>
+                            <h2
+                                class="text-[10px] text-teal font-bold uppercase tracking-[0.3em] mb-4"
+                            >
+                                Status Reports
+                            </h2>
+                            <p
+                                class="text-xs text-text-muted uppercase tracking-widest leading-loose font-medium"
+                            >
+                                Average Response Time: 4.2 Hours<br />
+                                Active Monitoring: 06:00 - 22:00
+                            </p>
+                        </div>
+
+                        <div class="p-6 border border-forest bg-forest/20">
+                            <h2
+                                class="text-[10px] text-orange font-bold uppercase tracking-[0.3em] mb-4"
+                            >
+                                Primary Link
+                            </h2>
+                            <a
+                                href="https://amplifycreativelab.com"
+                                target="_blank"
+                                rel="nofollow noopener noreferrer"
+                                class="text-sm font-bold text-sand hover:text-orange transition-colors uppercase tracking-widest"
+                                >amplifycreativelab.com</a
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <TopoDivider opacity={5} />
+    </main>
+
+    <Footer />
+</BaseLayout>

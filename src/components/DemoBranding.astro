@@ -1,0 +1,99 @@
+﻿---
+const mainSiteUrl = "https://amplifycreativelab.com";
+---
+
+<div class="demo-branding" role="note" aria-label="Concept demo attribution">
+  <a
+    class="demo-branding__link"
+    href={mainSiteUrl}
+    target="_blank"
+    rel="nofollow noopener noreferrer"
+  >
+    <span class="demo-branding__label">Concept Demo</span>
+    <span class="demo-branding__by">by Amplify Creative Lab</span>
+    <span class="demo-branding__sub">High-performance Astro build - Motion-first design</span>
+  </a>
+</div>
+
+<style>
+  .demo-branding {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 9999;
+    pointer-events: none;
+    max-width: 260px;
+  }
+
+  .demo-branding__link {
+    pointer-events: auto;
+    display: grid;
+    gap: 2px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: rgba(0, 0, 0, 0.78);
+    text-decoration: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    transition:
+      opacity 160ms ease,
+      transform 160ms ease,
+      background-color 160ms ease;
+    opacity: 0.78;
+  }
+
+  .demo-branding__link:hover {
+    opacity: 0.95;
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.86);
+  }
+
+  .demo-branding__label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+
+  .demo-branding__by {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .demo-branding__sub {
+    font-size: 11px;
+    line-height: 1.2;
+    opacity: 0.72;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .demo-branding__link {
+      border-color: rgba(255, 255, 255, 0.14);
+      background: rgba(0, 0, 0, 0.44);
+      color: rgba(255, 255, 255, 0.86);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .demo-branding__link:hover {
+      background: rgba(0, 0, 0, 0.56);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .demo-branding {
+      right: 12px;
+      left: 12px;
+      max-width: none;
+    }
+  }
+
+  @media print {
+    .demo-branding {
+      display: none;
+    }
+  }
+</style>

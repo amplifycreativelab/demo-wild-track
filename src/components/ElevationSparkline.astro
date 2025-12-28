@@ -1,0 +1,62 @@
+---
+interface Props {
+    points: number[];
+    class?: string;
+}
+
+const { points = [10, 40, 25, 60, 30, 80], class: className } = Astro.props;
+
+// Calculate SVG path
+const width = 100;
+const height = 40;
+const max = Math.max(...points);
+const min = Math.min(...points);
+const range = max - min;
+
+const pathData = points
+    .map((p, i) => {
+        const x = (i / (points.length - 1)) * width;
+        const y = height - ((p - min) / range) * height;
+        return `${i === 0 ? "M" : "L"} ${x} ${y}`;
+    })
+    .join(" ");
+---
+
+<div class:list={["w-24 h-10", className]}>
+    <svg
+        viewBox={`0 0 ${width} ${height}`}
+        class="w-full h-full overflow-visible"
+    >
+        <path
+            d={pathData}
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linejoin="round"
+            class="text-teal transition-all duration-700 ease-out"
+            style="stroke-dasharray: 200; stroke-dashoffset: 200;"
+            data-sparkline-path></path>
+    </svg>
+</div>
+
+<script>
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const path = entry.target.querySelector(
+                        "[data-sparkline-path]",
+                    ) as SVGPathElement;
+                    if (path) {
+                        path.style.strokeDashoffset = "0";
+                    }
+                }
+            });
+        },
+        { threshold: 0.1 },
+    );
+
+    document
+        .querySelectorAll(".w-24.h-10")
+        .forEach((el) => observer.observe(el));
+</script>

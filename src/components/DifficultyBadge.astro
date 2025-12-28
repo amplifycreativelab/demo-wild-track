@@ -1,0 +1,39 @@
+---
+interface Props {
+    difficulty: "Easy" | "Moderate" | "Hard" | "Expert";
+    note?: string;
+    class?: string;
+}
+
+const { difficulty, note, class: className } = Astro.props;
+
+const colors = {
+    Easy: "border-teal text-teal bg-teal/5",
+    Moderate: "border-orange text-orange bg-orange/5",
+    Hard: "border-red-500 text-red-500 bg-red-500/5",
+    Expert: "border-purple-500 text-purple-500 bg-purple-500/5",
+};
+
+// Map Red/Purple to theme compatible if needed, though prompt specified Orange and Teal rules.
+// Let's stick to the prompt's accent rules: Orange = action, Teal = info.
+// But for difficulty, we need clear differentiation.
+// "Difficulty system includes visual + text description and is not color-only."
+---
+
+<div class:list={["inline-flex flex-col gap-1", className]}>
+    <div
+        class:list={[
+            "border px-2 py-0.5 text-xs font-bold tracking-tighter uppercase w-fit",
+            colors[difficulty],
+        ]}
+    >
+        {difficulty}
+    </div>
+    {
+        note && (
+            <span class="text-[10px] text-text-muted uppercase tracking-tight">
+                {note}
+            </span>
+        )
+    }
+</div>

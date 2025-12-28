@@ -1,0 +1,225 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import TourHero from "../../components/TourHero.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+    const tours = await getCollection("tours");
+    return tours.map((tour) => ({
+        params: { slug: tour.id },
+        props: { tour },
+    }));
+}
+
+const { tour } = Astro.props;
+const { Content } = await render(tour);
+
+const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+];
+---
+
+<BaseLayout title={tour.data.title} description={tour.data.difficultyNote}>
+    <Header />
+
+    <main class="w-full">
+        <TourHero
+            title={tour.data.title}
+            difficulty={tour.data.difficulty}
+            difficultyNote={tour.data.difficultyNote}
+            duration={tour.data.duration}
+            distance={tour.data.distance}
+            elevation={tour.data.elevationGain}
+            region={tour.data.region}
+            image={tour.data.image}
+        />
+
+        <section class="py-24">
+            <div
+                class="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16"
+            >
+                <!-- Main Content -->
+                <div class="lg:col-span-8">
+                    <div class="prose prose-invert max-w-none mb-16">
+                        <h2
+                            class="text-[10px] text-teal font-bold uppercase tracking-[0.3em] mb-8"
+                        >
+                            Route Intelligence
+                        </h2>
+                        <div
+                            class="text-lg text-text-primary leading-relaxed uppercase tracking-wide opacity-80 mb-12"
+                        >
+                            <Content />
+                        </div>
+                    </div>
+
+                    <!-- Best Season -->
+                    <div class="mb-16">
+                        <h2
+                            class="text-[10px] text-teal font-bold uppercase tracking-[0.3em] mb-8"
+                        >
+                            Seasonal Availability
+                        </h2>
+                        <div class="flex border border-forest overflow-x-auto">
+                            {
+                                months.map((month) => (
+                                    <div
+                                        class:list={[
+                                            "flex-1 min-w-[60px] py-4 text-center border-r last:border-r-0 border-forest",
+                                            tour.data.bestSeason.includes(month)
+                                                ? "bg-teal/10 text-teal font-bold"
+                                                : "text-text-muted opacity-30",
+                                        ]}
+                                    >
+                                        <span class="text-[10px] uppercase tracking-widest">
+                                            {month}
+                                        </span>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                        <p
+                            class="mt-4 text-[10px] text-text-muted uppercase tracking-widest text-right"
+                        >
+                            Highlighted months indicate optimal deployment
+                            conditions.
+                        </p>
+                    </div>
+
+                    <!-- Included -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h2
+                                class="text-[10px] text-teal font-bold uppercase tracking-[0.3em] mb-8"
+                            >
+                                Expedition Logistics
+                            </h2>
+                            <ul class="flex flex-col gap-4">
+                                {
+                                    tour.data.includes.map((item) => (
+                                        <li class="flex items-center gap-3">
+                                            <div class="w-1.5 h-1.5 bg-orange" />
+                                            <span class="text-xs font-bold text-text-primary uppercase tracking-widest">
+                                                {item}
+                                            </span>
+                                        </li>
+                                    ))
+                                }
+                            </ul>
+                        </div>
+                        <div>
+                            <h2
+                                class="text-[10px] text-teal font-bold uppercase tracking-[0.3em] mb-8"
+                            >
+                                Terrain Details
+                            </h2>
+                            <div class="flex flex-col gap-4">
+                                <div
+                                    class="p-4 border border-forest bg-forest/20"
+                                >
+                                    <span
+                                        class="block text-[10px] text-text-muted uppercase tracking-widest mb-1"
+                                        >Terrain Type</span
+                                    >
+                                    <span
+                                        class="text-xs font-bold text-sand uppercase tracking-widest"
+                                        >{tour.data.terrainType}</span
+                                    >
+                                </div>
+                                <div
+                                    class="p-4 border border-forest bg-forest/20"
+                                >
+                                    <span
+                                        class="block text-[10px] text-text-muted uppercase tracking-widest mb-1"
+                                        >Access Notes</span
+                                    >
+                                    <span
+                                        class="text-xs font-bold text-sand uppercase tracking-widest"
+                                        >{tour.data.accessNotes}</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar / Booking -->
+                <div class="lg:col-span-4 lg:sticky lg:top-24 h-fit">
+                    <div class="border border-forest p-8 bg-forest/10">
+                        <h3
+                            class="text-lg font-bold text-sand uppercase tracking-tight mb-6"
+                        >
+                            Secure Departure
+                        </h3>
+                        <div class="flex flex-col gap-4 mb-8">
+                            <div
+                                class="flex justify-between items-center py-3 border-b border-navy"
+                            >
+                                <span
+                                    class="text-[10px] text-text-muted uppercase tracking-widest"
+                                    >Base Rate</span
+                                >
+                                <span class="text-sm font-bold text-sand"
+                                    >From $149 AUD</span
+                                >
+                            </div>
+                            <div
+                                class="flex justify-between items-center py-3 border-b border-navy"
+                            >
+                                <span
+                                    class="text-[10px] text-text-muted uppercase tracking-widest"
+                                    >Group Limit</span
+                                >
+                                <span class="text-sm font-bold text-sand"
+                                    >{tour.data.groupSize}</span
+                                >
+                            </div>
+                            <div
+                                class="flex justify-between items-center py-3 border-b border-navy"
+                            >
+                                <span
+                                    class="text-[10px] text-text-muted uppercase tracking-widest"
+                                    >Next Entry</span
+                                >
+                                <span class="text-sm font-bold text-teal"
+                                    >CONFIRMED</span
+                                >
+                            </div>
+                        </div>
+                        <button
+                            class="w-full bg-orange text-navy font-bold py-4 uppercase tracking-widest hover:bg-orange/90 transition-colors mb-4"
+                        >
+                            Book Tour
+                        </button>
+                        <button
+                            class="w-full border border-sand text-sand font-bold py-4 uppercase tracking-widest hover:bg-sand/5 transition-all"
+                        >
+                            Request Itinerary
+                        </button>
+                        <p
+                            class="mt-8 text-[10px] text-text-muted text-center uppercase tracking-widest leading-loose"
+                        >
+                            Bookings are non-refundable within 48h of departure.
+                            Safety gear provided where indicated.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <Footer />
+</BaseLayout>

@@ -1,0 +1,194 @@
+---
+const { pathname } = Astro.url;
+const navItems = [
+    { name: "Tours", href: "/tours/" },
+    { name: "Gear", href: "/gear/" },
+    { name: "FAQs", href: "/faqs/" },
+    { name: "Contact", href: "/contact/" },
+];
+
+const base = import.meta.env.BASE_URL;
+---
+
+<header
+    class="fixed top-0 left-0 w-full z-50 bg-navy/80 backdrop-blur-md border-b border-forest"
+    data-mobile-menu-root
+>
+    <div class="container mx-auto px-6 h-16 flex items-center justify-between">
+        <a href={base} class="flex items-center gap-2 group">
+            <div
+                class="w-8 h-8 bg-orange flex items-center justify-center rotate-45 group-hover:rotate-90 transition-transform duration-500"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5 -rotate-45 text-navy group-hover:rotate-[-90deg] transition-transform duration-500"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                >
+                    <path
+                        d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+                    ></path>
+                </svg>
+            </div>
+            <span class="text-xl font-bold tracking-tighter uppercase text-sand"
+                >WildTrack</span
+            >
+        </a>
+
+        <nav class="hidden md:flex items-center gap-8">
+            {
+                navItems.map((item) => (
+                    <a
+                        href={`${base}${item.href.replace(/^\//, "")}`}
+                        class:list={[
+                            "text-xs font-bold uppercase tracking-widest hover:text-orange transition-colors",
+                            pathname.includes(item.href)
+                                ? "text-orange"
+                                : "text-text-muted",
+                        ]}
+                    >
+                        {item.name}
+                    </a>
+                ))
+            }
+            <a
+                href={`${base}contact/`}
+                class="bg-orange text-navy px-4 py-2 text-xs font-bold uppercase tracking-widest hover:bg-orange/90 transition-colors"
+            >
+                Book Now
+            </a>
+        </nav>
+
+        <!-- Mobile Menu Toggle (Simplified) -->
+        <button
+            class="md:hidden text-sand"
+            type="button"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+            data-mobile-menu-button
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Mobile Menu Panel -->
+    <div
+        id="mobile-menu"
+        class="md:hidden hidden border-t border-forest bg-navy/95 backdrop-blur-md"
+        data-mobile-menu-panel
+    >
+        <nav class="container mx-auto px-6 py-6 flex flex-col gap-6">
+            <div class="flex flex-col gap-4">
+                {
+                    navItems.map((item) => (
+                        <a
+                            href={`${base}${item.href.replace(/^\//, "")}`}
+                            class:list={[
+                                "text-sm font-bold uppercase tracking-widest hover:text-orange transition-colors",
+                                pathname.includes(item.href)
+                                    ? "text-orange"
+                                    : "text-text-muted",
+                            ]}
+                        >
+                            {item.name}
+                        </a>
+                    ))
+                }
+            </div>
+
+            <a
+                href={`${base}contact/`}
+                class="bg-orange text-navy px-4 py-3 text-xs font-bold uppercase tracking-widest hover:bg-orange/90 transition-colors text-center"
+            >
+                Book Now
+            </a>
+        </nav>
+    </div>
+
+    <script is:inline>
+        (() => {
+            const init = () => {
+                const root = document.querySelector("[data-mobile-menu-root]");
+                if (!root) return;
+
+                const button = root.querySelector("[data-mobile-menu-button]");
+                const panel = root.querySelector("[data-mobile-menu-panel]");
+                if (
+                    !(button instanceof HTMLButtonElement) ||
+                    !(panel instanceof HTMLElement)
+                ) {
+                    return;
+                }
+
+                const links = panel.querySelectorAll("a");
+                const desktopMedia = window.matchMedia("(min-width: 768px)");
+
+                const openMenu = () => {
+                    panel.classList.remove("hidden");
+                    button.setAttribute("aria-expanded", "true");
+                    document.body.classList.add("overflow-hidden");
+                };
+
+                const closeMenu = () => {
+                    panel.classList.add("hidden");
+                    button.setAttribute("aria-expanded", "false");
+                    document.body.classList.remove("overflow-hidden");
+                };
+
+                const toggleMenu = () => {
+                    if (panel.classList.contains("hidden")) openMenu();
+                    else closeMenu();
+                };
+
+                button.addEventListener("click", toggleMenu);
+
+                links.forEach((link) => {
+                    link.addEventListener("click", closeMenu);
+                });
+
+                document.addEventListener("keydown", (event) => {
+                    if (event.key === "Escape") closeMenu();
+                });
+
+                document.addEventListener("click", (event) => {
+                    const target = event.target;
+                    if (!(target instanceof Node)) return;
+                    if (!root.contains(target)) closeMenu();
+                });
+
+                if (typeof desktopMedia.addEventListener === "function") {
+                    desktopMedia.addEventListener("change", (event) => {
+                        if (event.matches) closeMenu();
+                    });
+                } else if (typeof desktopMedia.addListener === "function") {
+                    desktopMedia.addListener((event) => {
+                        if (event.matches) closeMenu();
+                    });
+                }
+            };
+
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", init, {
+                    once: true,
+                });
+            } else {
+                init();
+            }
+        })();
+    </script>
+</header>

@@ -1,0 +1,83 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import TopoDivider from "../components/TopoDivider.astro";
+
+const faqs = [
+    {
+        q: "What is the policy for severe weather events?",
+        a: "Department of Fire and Emergency Services (DFES) warnings override all schedules. Expeditions in Red Alert zones will be extracted or delayed with no penalty to participants.",
+    },
+    {
+        q: "Do I need previous technical navigation experience?",
+        a: "For 'Easy' and 'Moderate' routes, no. For 'Hard' and 'Expert' routes, a baseline understanding of topo maps and compass work is recommended, though guides provide support.",
+    },
+    {
+        q: "What communication gear is provided?",
+        a: "Guides carry PLBs (Personal Locator Beacons) and Garmin InReach satellite messengers. Participants on technical routes are encouraged to carry their own redundant systems.",
+    },
+    {
+        q: "How are medical emergencies handled in remote areas?",
+        a: "All lead guides are Wilderness First Aid certified. We maintain evacuation protocols for every sector, including pre-identified LZ (Landing Zone) coordinates for rescue aircraft.",
+    },
+];
+---
+
+<BaseLayout title="FAQs | Safety & Logistics">
+    <Header />
+
+    <main class="pt-24 min-h-screen">
+        <section class="py-16 bg-navy">
+            <div class="container mx-auto px-6 max-w-3xl">
+                <div class="flex items-center gap-3 mb-4">
+                    <span
+                        class="text-xs font-bold text-teal uppercase tracking-[0.4em]"
+                        >Sector Intelligence</span
+                    >
+                    <div class="h-px w-12 bg-forest"></div>
+                </div>
+                <h1
+                    class="text-5xl md:text-6xl font-bold text-sand uppercase tracking-tight leading-[0.9] mb-8"
+                >
+                    Logistics FAQ
+                </h1>
+
+                <div class="flex flex-col gap-8 mt-16">
+                    {
+                        faqs.map((faq) => (
+                            <div class="border-l-2 border-forest pl-8 py-4">
+                                <h2 class="text-sm font-bold text-sand uppercase tracking-widest mb-4 leading-relaxed">
+                                    {faq.q}
+                                </h2>
+                                <p class="text-xs text-text-muted leading-loose uppercase tracking-[0.1em]">
+                                    {faq.a}
+                                </p>
+                            </div>
+                        ))
+                    }
+                </div>
+
+                <div class="mt-20 p-8 border border-teal/20 bg-teal/5">
+                    <h3
+                        class="text-[10px] text-teal font-bold uppercase tracking-[0.3em] mb-4"
+                    >
+                        Emergency Contact
+                    </h3>
+                    <p
+                        class="text-xs text-text-muted uppercase tracking-widest leading-loose"
+                    >
+                        Basecamp Control is monitored 24/7 during active
+                        expeditions. <br />
+                        Field Frequency: 146.520 MHz (VHF) <br />
+                        Emergency Satellite Text: +1-XXX-XXX-XXXX
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <TopoDivider opacity={5} />
+    </main>
+
+    <Footer />
+</BaseLayout>

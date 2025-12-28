@@ -1,0 +1,148 @@
+---
+import DifficultyBadge from "./DifficultyBadge.astro";
+import { Image } from "astro:assets";
+
+interface Props {
+    title: string;
+    difficulty: "Easy" | "Moderate" | "Hard" | "Expert";
+    difficultyNote: string;
+    duration: string;
+    distance: string;
+    elevation: string;
+    region: string;
+    class?: string;
+    image?: any; // ImageMetadata;
+}
+
+const {
+    title,
+    difficulty,
+    difficultyNote,
+    duration,
+    distance,
+    elevation,
+    region,
+    class: className,
+    image,
+} = Astro.props;
+---
+
+<section
+    class:list={[
+        "relative bg-navy pt-24 pb-16 overflow-hidden border-b border-forest",
+        className,
+    ]}
+>
+    <!-- Background Image -->
+    {
+        image && (
+            <div class="absolute inset-0 z-0 opacity-40">
+                <Image
+                    src={image}
+                    alt={title}
+                    class="w-full h-full object-cover"
+                />
+                <div class="absolute inset-0 bg-navy/60 mix-blend-multiply" />
+            </div>
+        )
+    }
+
+    <!-- Background Topographic Lines (Overlay) -->
+    <div
+        class:list={[
+            "absolute inset-0 pointer-events-none",
+            image ? "opacity-[0.1]" : "opacity-[0.03]",
+        ]}
+    >
+        <svg
+            viewBox="0 0 1000 1000"
+            class="w-full h-full scale-[2] origin-center -rotate-12"
+        >
+            {
+                Array.from({ length: 15 }).map((_, i) => (
+                    <path
+                        d={`M0,${i * 80} Q250,${i * 80 + 40} 500,${i * 80} T1000,${i * 80 + 40}`}
+                        fill="none"
+                        stroke="white"
+                        stroke-width="1"
+                    />
+                ))
+            }
+        </svg>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        <div
+            class="flex flex-col md:flex-row md:items-end justify-between gap-8"
+        >
+            <div class="max-w-2xl">
+                <div class="flex items-center gap-3 mb-6">
+                    <span
+                        class="text-xs font-bold text-teal uppercase tracking-[0.2em]"
+                        >{region}</span
+                    >
+                    <div class="h-px w-8 bg-forest"></div>
+                </div>
+                <h1
+                    class="text-5xl md:text-7xl font-bold text-sand mb-8 leading-[0.9]"
+                >
+                    {title}
+                </h1>
+                <div class="flex flex-wrap gap-4">
+                    <DifficultyBadge
+                        difficulty={difficulty}
+                        note={difficultyNote}
+                    />
+                    <div
+                        class="flex items-center gap-6 px-4 py-2 bg-forest/50 border border-forest"
+                    >
+                        <div>
+                            <span
+                                class="block text-[10px] text-text-muted uppercase tracking-widest mb-0.5"
+                                >Duration</span
+                            >
+                            <span class="text-sm font-bold text-text-primary"
+                                >{duration}</span
+                            >
+                        </div>
+                        <div class="w-px h-6 bg-navy"></div>
+                        <div>
+                            <span
+                                class="block text-[10px] text-text-muted uppercase tracking-widest mb-0.5"
+                                >Distance</span
+                            >
+                            <span
+                                class="text-sm font-bold text-text-primary uppercase"
+                                >{distance}</span
+                            >
+                        </div>
+                        <div class="w-px h-6 bg-navy"></div>
+                        <div>
+                            <span
+                                class="block text-[10px] text-text-muted uppercase tracking-widest mb-0.5"
+                                >Elevation</span
+                            >
+                            <span
+                                class="text-sm font-bold text-text-primary uppercase"
+                                >{elevation}</span
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-4 min-w-[200px]">
+                <button
+                    class="bg-orange text-navy font-bold px-8 py-4 uppercase tracking-widest hover:scale-[1.02] active:scale-[0.98] transition-all"
+                >
+                    Book Expedition
+                </button>
+                <button
+                    class="border border-sand text-sand font-bold px-8 py-4 uppercase tracking-widest hover:bg-sand/5 transition-all"
+                >
+                    Request Itinerary
+                </button>
+            </div>
+        </div>
+    </div>
+</section>

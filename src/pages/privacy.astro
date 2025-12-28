@@ -1,0 +1,80 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import TopoDivider from "../components/TopoDivider.astro";
+---
+
+<BaseLayout title="Privacy Protocol | Data Security">
+    <Header />
+
+    <main class="pt-24 min-h-screen">
+        <section class="py-16 bg-navy">
+            <div class="container mx-auto px-6 max-w-3xl">
+                <div class="flex items-center gap-3 mb-4">
+                    <span
+                        class="text-xs font-bold text-teal uppercase tracking-[0.4em]"
+                        >Operations Security</span
+                    >
+                    <div class="h-px w-12 bg-forest"></div>
+                </div>
+                <h1
+                    class="text-5xl md:text-6xl font-bold text-sand uppercase tracking-tight leading-[0.9] mb-12"
+                >
+                    Privacy Protocol
+                </h1>
+
+                <div
+                    class="flex flex-col gap-12 text-xs text-text-muted leading-loose uppercase tracking-[0.1em]"
+                >
+                    <section>
+                        <h2
+                            class="text-sm font-bold text-sand mb-4 tracking-widest"
+                        >
+                            01. Data Collection
+                        </h2>
+                        <p>
+                            We collect navigator data including technical skill
+                            levels, gear preferences, and contact signatures
+                            solely for expedition planning and safety logistics.
+                            No data is transmitted to third-party entities
+                            without operational necessity.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2
+                            class="text-sm font-bold text-sand mb-4 tracking-widest"
+                        >
+                            02. Signal Interception
+                        </h2>
+                        <p>
+                            Site interactions are monitored to optimize the
+                            mapping interface and improve technical discovery.
+                            We do not use persistent tracking cookies for
+                            marketing profiling.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2
+                            class="text-sm font-bold text-sand mb-4 tracking-widest"
+                        >
+                            03. Encryption Standards
+                        </h2>
+                        <p>
+                            All mission-critical data is stored using
+                            industry-standard encryption protocols. Sensitive
+                            field reports and medical clearances are accessed
+                            only by lead expedition guides.
+                        </p>
+                    </section>
+                </div>
+            </div>
+        </section>
+
+        <TopoDivider opacity={5} />
+    </main>
+
+    <Footer />
+</BaseLayout>

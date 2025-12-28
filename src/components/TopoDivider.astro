@@ -1,0 +1,34 @@
+---
+interface Props {
+    class?: string;
+    opacity?: number;
+}
+
+const { class: className, opacity = 10 } = Astro.props;
+---
+
+<div
+    class:list={["w-full overflow-hidden leading-none", className]}
+    style={`opacity: ${opacity}%`}
+>
+    <svg
+        viewBox="0 0 1200 120"
+        preserveAspectRatio="none"
+        class="w-full h-12 text-sand"
+    >
+        <path
+            d="M0,0 C150,45 400,-25 600,35 C800,95 1050,15 1200,60 L1200,120 L0,120 Z"
+            fill="currentColor"
+            fill-opacity="0.1"></path>
+        <path
+            d="M0,20 C100,55 350,15 550,55 C750,95 1000,45 1200,80"
+            stroke="currentColor"
+            fill="none"
+            stroke-width="0.5"></path>
+        <path
+            d="M0,40 C120,75 380,35 580,75 C780,115 1030,65 1200,100"
+            stroke="currentColor"
+            fill="none"
+            stroke-width="0.5"></path>
+    </svg>
+</div>

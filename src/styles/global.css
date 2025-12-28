@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #0A1020;
+  --color-forest: #0F2A1E;
+  --color-sand: #F2E7D3;
+  --color-orange: #FF6A00;
+  --color-teal: #1EE3CF;
+  --color-text-primary: #F3F6FA;
+  --color-text-muted: #A9B3C2;
+
+  --font-sora: "Sora", sans-serif;
+  --font-inter: "Inter", sans-serif;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-inter);
+    background-color: var(--color-navy);
+    color: var(--color-text-primary);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-sora);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 bg-orange text-navy font-bold uppercase tracking-wider hover:bg-orange/90 transition-colors;
+  }
+  
+  .btn-secondary {
+    @apply px-6 py-3 bg-transparent border-2 border-sand text-sand font-bold uppercase tracking-wider hover:bg-sand/10 transition-colors;
+  }
+
+  .topo-grid {
+    background-image: 
+      linear-gradient(to right, rgba(169, 179, 194, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(169, 179, 194, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}

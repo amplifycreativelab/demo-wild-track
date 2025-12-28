@@ -1,0 +1,237 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import RouteCard from "../components/RouteCard.astro";
+import ServiceBlock from "../components/ServiceBlock.astro";
+import TopoDivider from "../components/TopoDivider.astro";
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import heroBg from "../assets/images/hero-bg-trim-palette.png";
+
+const featuredTours = await getCollection("tours", ({ data }) => {
+	return data.featured === true;
+});
+
+const trustSignals = [
+	{
+		title: "Mapping Precision",
+		description:
+			"Every route is verified with mapping-grade GPS instrumentation and topographic accuracy.",
+		icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A2 2 0 013 15.488V5.512a2 2 0 011.553-1.944L9 2l6 3 5.447-2.724A2 2 0 0121 4.512v9.976a2 2 0 01-1.553 1.944L15 22l-6-3z" /></svg>`,
+	},
+	{
+		title: "Logistics First",
+		description:
+			"Expedition planning focused on safety, gear readiness, and terrain intel. Zero marketing fluff.",
+		icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.618.283a2 2 0 01-1.134.155l-2.23-.326a2 2 0 00-1.022.547l-2.387-.477a6 6 0 00-3.86.517l-.618.283a2 2 0 01-1.134.155l-2.23-.326z" /></svg>`,
+	},
+	{
+		title: "Certified Guides",
+		description:
+			"All tours led by wilderness-certified navigators with deep expertise in remote terrain.",
+		icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>`,
+	},
+];
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Expedition-Grade Guided Tours">
+	<Header />
+
+	<main class="w-full">
+		<!-- Hero Section -->
+		<section
+			class="relative w-full min-h-screen flex items-center pt-16 overflow-hidden"
+		>
+			<!-- Background Graphic -->
+			<div class="absolute inset-0 z-0 select-none">
+				<Image
+					src={heroBg}
+					alt="Rugged mountain landscape"
+					class="w-full h-full object-cover opacity-40 mix-blend-multiply"
+					quality="high"
+				/>
+				<div
+					class="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-transparent opacity-80"
+				>
+				</div>
+			</div>
+
+			<div
+				class="container mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12"
+			>
+				<div class="lg:col-span-8">
+					<div class="flex items-center gap-3 mb-8">
+						<span
+							class="text-xs font-bold text-teal uppercase tracking-[0.4em]"
+							>Region: Concept Region</span
+						>
+						<div class="h-px w-12 bg-forest"></div>
+					</div>
+					<h1
+						class="text-6xl md:text-9xl font-bold text-sand mb-8 leading-[0.85] tracking-tighter uppercase"
+					>
+						Rugged<br />Precision
+					</h1>
+					<p
+						class="text-lg md:text-xl text-text-muted mb-12 max-w-xl font-medium leading-relaxed uppercase tracking-wider"
+					>
+						High-credibility adventure planning & guided
+						expeditions. Built for navigators, not spectators.
+					</p>
+					<div class="flex flex-col sm:flex-row gap-6">
+						<a
+							href={`${base}tours/`}
+							class="bg-orange text-navy font-bold px-10 py-5 uppercase tracking-widest text-center hover:scale-[1.02] active:scale-[0.98] transition-all"
+						>
+							Discover Tours
+						</a>
+						<a
+							href={`${base}contact/`}
+							class="border-2 border-sand text-sand font-bold px-10 py-5 uppercase tracking-widest text-center hover:bg-sand/5 transition-all"
+						>
+							Request Itinerary
+						</a>
+					</div>
+				</div>
+
+				<div
+					class="lg:col-span-4 hidden lg:flex flex-col justify-end pb-12"
+				>
+					<div class="border-l border-forest pl-8">
+						<span
+							class="block text-[10px] text-teal font-bold uppercase tracking-[0.3em] mb-4"
+							>Current Operating Zones</span
+						>
+						<ul class="flex flex-col gap-4">
+							<li class="flex items-center justify-between group">
+								<span
+									class="text-xs font-bold uppercase tracking-widest text-text-muted group-hover:text-sand transition-colors"
+									>Ridgeway District</span
+								>
+								<span
+									class="text-[10px] text-teal border border-teal/30 px-2 py-0.5"
+									>OPEN</span
+								>
+							</li>
+							<li class="flex items-center justify-between group">
+								<span
+									class="text-xs font-bold uppercase tracking-widest text-text-muted group-hover:text-sand transition-colors"
+									>Coastal Dunes</span
+								>
+								<span
+									class="text-[10px] text-teal border border-teal/30 px-2 py-0.5"
+									>OPEN</span
+								>
+							</li>
+							<li
+								class="flex items-center justify-between group opacity-50"
+							>
+								<span
+									class="text-xs font-bold uppercase tracking-widest text-text-muted"
+									>Stirling Ranges</span
+								>
+								<span
+									class="text-[10px] text-text-muted border border-text-muted/30 px-2 py-0.5 uppercase"
+									>Off-Season</span
+								>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<TopoDivider opacity={10} />
+
+		<!-- Featured Tours -->
+		<section class="py-24 bg-forest/20">
+			<div class="container mx-auto px-6">
+				<div
+					class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16"
+				>
+					<div>
+						<h2
+							class="text-[10px] text-teal font-bold uppercase tracking-[0.3em] mb-4"
+						>
+							Active Expeditions
+						</h2>
+						<h3
+							class="text-4xl md:text-5xl font-bold text-sand uppercase tracking-tight"
+						>
+							Featured Routes
+						</h3>
+					</div>
+					<a
+						href={`${base}tours/`}
+						class="text-xs font-bold uppercase tracking-widest text-orange border-b border-orange/30 hover:border-orange transition-all pb-1"
+					>
+						Browse All Tours
+					</a>
+				</div>
+
+				<div
+					class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+				>
+					{
+						featuredTours.map((tour) => (
+							<RouteCard
+								slug={tour.id}
+								name={tour.data.title}
+								difficulty={tour.data.difficulty}
+								difficultyNote={tour.data.difficultyNote}
+								duration={tour.data.duration}
+								distance={tour.data.distance}
+								image={tour.data.image}
+							/>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- Trust Signals -->
+		<section class="py-24">
+			<div class="container mx-auto px-6">
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+					{
+						trustSignals.map((signal) => (
+							<ServiceBlock
+								title={signal.title}
+								description={signal.description}
+								icon={signal.icon}
+							/>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- Final CTA -->
+		<section class="py-24 border-y border-forest mt-20">
+			<div class="container mx-auto px-6 text-center max-w-3xl">
+				<h2
+					class="text-3xl md:text-4xl font-bold text-sand mb-8 uppercase tracking-tight"
+				>
+					Ready for Deployment?
+				</h2>
+				<p
+					class="text-text-muted mb-12 uppercase tracking-[0.1em] text-sm leading-loose"
+				>
+					Our team provides full technical support, gear checklists,
+					and expert navigation for every expedition. Start your
+					journey with a custom itinerary request.
+				</p>
+				<div class="flex justify-center">
+					<a href={`${base}contact/`} class="btn-primary">
+						Initialize Booking
+					</a>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</BaseLayout>
